@@ -1,0 +1,12 @@
+-- Set root password
+ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';
+
+-- Create wordpress database
+CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;
+
+-- Create user
+CREATE USER IF NOT EXISTS '$MYSQL_USER'@'localhost';
+SET PASSWORD FOR '$MYSQL_USER'@'localhost' = PASSWORD('$MYSQL_PASSWORD');
+GRANT ALL PRIVILEGES ON wordpress_db.* TO '$MYSQL_USER'@'localhost' IDENTIFIED BY '$MYSQL_PASSWORD';
+
+FLUSH PRIVILEGES;

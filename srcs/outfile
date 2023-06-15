@@ -1,0 +1,72 @@
+Step 1/7 : FROM debian:buster
+ ---> 4591634d6289
+Step 2/7 : RUN apt-get update &&     apt-get upgrade -y &&     apt-get install mariadb-server -y
+ ---> Using cache
+ ---> c6b6d7eb0063
+Step 3/7 : COPY tools/ /tmp/mariadb/
+ ---> Using cache
+ ---> 0c1a984654a5
+Step 4/7 : RUN sed 's/bind-address            = 127.0.0.1/bind-address            = 0.0.0.0/'	-i /etc/mysql/mariadb.conf.d/50-server.cnf
+ ---> Using cache
+ ---> a160d1f9f229
+Step 5/7 : RUN service mysql start && mariadb -u root < /tmp/mariadb/setup.sql
+ ---> Using cache
+ ---> c2a5afd4a6d3
+Step 6/7 : EXPOSE 3306
+ ---> Using cache
+ ---> d42cc5a69c69
+Step 7/7 : CMD ["mysqld"]
+ ---> Using cache
+ ---> fa7d016d9743
+Successfully built fa7d016d9743
+Successfully tagged srcs_mariadb:latest
+Step 1/10 : FROM debian:buster
+ ---> 4591634d6289
+Step 2/10 : RUN apt update && apt upgrade -y
+ ---> Using cache
+ ---> 419d81fd5f8c
+Step 3/10 : RUN apt install -y mariadb-client php php-bcmath php-curl php-imagick php-intl php-json php-mbstring php-mysql php-xml php-zip php-fpm curl unzip
+ ---> Using cache
+ ---> 97cb422e5e25
+Step 4/10 : RUN curl -L https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -o wp-cli.phar
+ ---> Using cache
+ ---> cd3af8ca8cda
+Step 5/10 : RUN php wp-cli.phar --info
+ ---> Using cache
+ ---> 741c9cc05127
+Step 6/10 : RUN chmod +x wp-cli.phar
+ ---> Using cache
+ ---> e9053feb9316
+Step 7/10 : RUN cp wp-cli.phar /usr/local/bin/wp
+ ---> Using cache
+ ---> fc6b327b734a
+Step 8/10 : WORKDIR /var/www/html
+ ---> Using cache
+ ---> 9d70eb2d01d1
+Step 9/10 : COPY tools/setup.sh /tmp/setup.sh
+ ---> Using cache
+ ---> ced394a99b6c
+Step 10/10 : CMD ["sh", "/tmp/setup.sh"]
+ ---> Using cache
+ ---> efd201c6ed26
+Successfully built efd201c6ed26
+Successfully tagged srcs_wordpress:latest
+Attaching to mariadb, wordpress
+[33mwordpress    |[0m Waiting for MariaDB to come online...
+[33mwordpress    |[0m Waiting for MariaDB to come online...
+[36mmariadb exited with code 1
+[0m[33mwordpress    |[0m Waiting for MariaDB to come online...
+[32mmariadb exited with code 1
+[0m[33mwordpress    |[0m Waiting for MariaDB to come online...
+[35mmariadb exited with code 1
+[0m[33mwordpress    |[0m Waiting for MariaDB to come online...
+[34mmariadb exited with code 1
+[0m[33mwordpress    |[0m Waiting for MariaDB to come online...
+[36;1mmariadb exited with code 1
+[0m[33mwordpress    |[0m Waiting for MariaDB to come online...
+[33;1mmariadb exited with code 1
+[0m[32;1mmariadb exited with code 1
+[0m[35;1mmariadb exited with code 1
+[0m[34;1mmariadb exited with code 1
+[0m[36mmariadb exited with code 1
+[0mGracefully stopping... (press Ctrl+C again to force)

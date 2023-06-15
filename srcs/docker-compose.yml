@@ -1,0 +1,48 @@
+version: "3"
+
+networks:
+  frontend:
+
+volumes:
+  mariadb-volume:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: /home/ivork/Documents/Codam/inception/srcs/mariadb
+  wordpress-volume:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: /home/ivork/Documents/Codam/inception/srcs/wordpress/site
+
+
+services:
+  mariadb:
+      container_name: "mariadb"
+      build: ./mariadb
+      restart: unless-stopped
+      networks:
+        - frontend
+      volumes:
+        - mariadb-volume:/var/lib/mysql
+      ports:
+        - 3306:3306
+      env_file:
+        - .env
+
+  wordpress:
+      container_name: "wordpress"
+      build: ./wordpress
+      restart: always
+      expose:
+        - 9000
+      networks:
+        - frontend
+      depends_on:
+        - mariadb
+      volumes:
+        - wordpress-volume:/var/www/html
+      env_file:
+        - .env
