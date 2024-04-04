@@ -48,16 +48,16 @@ services:
         - .env
 
   nginx:
-    container_name: "nginx"
-    build: ./nginx
-    depends_on:
-      - wordpress
-    restart: on-failure
-    volumes:
-      - wordpress_volume:/var/www/
-    ports:
-      - "443:443"
-    networks:
-      - frontend
-    env_file:
-      - .env
+      container_name: "nginx"
+      build: ./nginx
+      depends_on:
+        - wordpress
+      restart: on-failure
+      volumes:
+        - wordpress_volume:/var/www/
+      ports:
+        - "443:443"
+      networks:
+        - frontend
+      env_file:
+        - .env
