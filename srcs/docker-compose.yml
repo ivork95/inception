@@ -54,7 +54,7 @@ services:
         - wordpress
       restart: on-failure
       volumes:
-        - wordpress_volume:/var/www/
+        - wordpress-volume:/var/www/
       ports:
         - "443:443"
       networks:
