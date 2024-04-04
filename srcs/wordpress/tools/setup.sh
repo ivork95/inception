@@ -77,5 +77,4 @@ wp-cli user create\
 fi
 
 echo "Running php-fpm"
-# --nodaemonize forces staying in the foreground
 php-fpm7.4 --nodaemonize
