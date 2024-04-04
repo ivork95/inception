@@ -1,6 +1,6 @@
 # Variables
 COMPOSE_FILE := ./srcs/docker-compose.yml
-DOCKER_COMPOSE := docker-compose
+DOCKER_COMPOSE := docker compose
 
 # Phony targets
 .PHONY: up rebuild prune clean
@@ -10,7 +10,7 @@ DOCKER_COMPOSE := docker-compose
 
 # Rule for starting the containers
 up:
-	$(DOCKER_COMPOSE) -f $(COMPOSE_FILE) up --build
+	sudo $(DOCKER_COMPOSE) -f $(COMPOSE_FILE) up --build
 
 # Rule for rebuilding if the compose file has changed
 rebuild: $(COMPOSE_FILE)
