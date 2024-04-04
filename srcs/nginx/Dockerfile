@@ -1,11 +1,29 @@
-FROM debian:buster
+FROM debian:oldstable
 
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install nginx -y
+RUN apt update -y && apt upgrade -y
 
-COPY ./src/nginx.conf /etc/nginx/nginx.conf
+RUN apt install -y\
+	nginx\
+	openssl
 
-EXPOSE 443
+COPY src/nginx.conf /etc/nginx/sites-available/nginx.conf
 
-CMD ["nginx", "-g", "daemon off;"]
+RUN mkdir -p /var/www
+
+# Removes everything in sites-enabled/
+# Forces symlink of sites-available/nginx.conf under the name sites-enabled/nginx.conf
+RUN rm -rf /etc/nginx/sites-enabled/* &&\
+	ln -sf /etc/nginx/sites-available/nginx.conf /etc/nginx/sites-enabled/nginx.conf
+
+# Generate the certificate and key for a secure connection
+RUN mkdir -p /etc/nginx/ssl &&\
+	openssl req\
+	-x509\
+	-nodes\
+	-out\
+	/etc/nginx/ssl/inception.crt\
+	-keyout /etc/nginx/ssl/inception.key\
+	-subj "/C=NL/ST=Noord-Holland/L=Amsterdam/O=Codam/OU=Me/CN=ivork"
+
+# Run nginx in the foreground so the container doesn't stop
+CMD [ "nginx", "-g", "daemon off;" ]

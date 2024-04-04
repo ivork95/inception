@@ -15,11 +15,11 @@
 ALTER USER 'root'@'localhost' IDENTIFIED BY 'password';
 
 -- Create wordpress database
-CREATE DATABASE IF NOT EXISTS 'WordPressDatabase';
+CREATE DATABASE IF NOT EXISTS WordPressDatabase;
 
 -- Create user
 CREATE USER IF NOT EXISTS 'ivork'@'localhost';
 SET PASSWORD FOR 'ivork'@'localhost' = PASSWORD('password');
-GRANT ALL PRIVILEGES ON *.* TO 'ivork'@'%' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON wordpress_db.* TO 'ivork'@'%' IDENTIFIED BY 'password';
 
 FLUSH PRIVILEGES;
