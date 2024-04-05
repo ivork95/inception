@@ -4,8 +4,8 @@ DOCKER_COMPOSE := docker compose
 .DEFAULT_GOAL := up
 
 up:
-	mkdir ./srcs/mariadb/volume
-	mkdir ./srcs/wordpress/site
+	mkdir -p ~/home/ivork/data/database
+	mkdir -p ~/home/ivork/data/site
 	$(DOCKER_COMPOSE) -f $(COMPOSE_FILE) up --build
 
 down:
@@ -23,8 +23,8 @@ clean:
 	docker volume rm $$(docker volume ls -q) 2> /dev/null || exit 0
 	docker network rm $$(docker network ls -q) 2> /dev/null || exit 0
 	docker builder prune -f
-	sudo rm -rf ./srcs/mariadb/volume
-	sudo rm -rf ./srcs/wordpress/site
+	rm -rf ~/home/ivork/data/database
+	rm -rf ~/home/ivork/data/site
 
 .PHONY: up down prune clean
 

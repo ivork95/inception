@@ -9,20 +9,20 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: /home/ivork/Documents/codam/inception/srcs/mariadb/volume
+      device: /home/ivork/data/database
   wordpress-volume:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: /home/ivork/Documents/codam/inception/srcs/wordpress/site
+      device: /home/ivork/data/site
 
 
 services:
   mariadb:
       container_name: "mariadb"
       build: ./mariadb
-      restart: unless-stopped
+      restart: always
       networks:
         - frontend
       volumes:
@@ -56,7 +56,7 @@ services:
       volumes:
         - wordpress-volume:/var/www/
       ports:
-        - "443:443"
+        - 443:443
       networks:
         - frontend
       env_file:
