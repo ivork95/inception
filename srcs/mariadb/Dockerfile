@@ -13,8 +13,8 @@ RUN sed 's/bind-address .*/bind-address = mariadb/' -i /etc/mysql/mariadb.conf.d
 
 RUN mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
-COPY tools/start.sh /home/start.sh
-COPY tools/start.sql /home/start.sql
-RUN chmod 777 /home/start.sh /home/start.sql;
-CMD [ "/home/start.sh" ]
+COPY tools/setup.sh /home/setup.sh
+COPY tools/setup.sql /home/setup.sql
+RUN chmod 777 /home/setup.sh /home/setup.sql;
+CMD [ "/home/setup.sh" ]
 
