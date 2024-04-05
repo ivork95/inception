@@ -4,8 +4,8 @@ DOCKER_COMPOSE := docker compose
 .DEFAULT_GOAL := up
 
 up:
-	mkdir -p ~/home/ivork/data/database
-	mkdir -p ~/home/ivork/data/site
+	mkdir -p /home/ivork/data/database
+	mkdir -p /home/ivork/data/site
 	$(DOCKER_COMPOSE) -f $(COMPOSE_FILE) up --build
 
 down:
