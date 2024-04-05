@@ -23,8 +23,8 @@ clean:
 	docker volume rm $$(docker volume ls -q) 2> /dev/null || exit 0
 	docker network rm $$(docker network ls -q) 2> /dev/null || exit 0
 	docker builder prune -f
-	rm -rf ~/home/ivork/data/database
-	rm -rf ~/home/ivork/data/site
+	rm -rf /home/ivork/data/database
+	rm -rf /home/ivork/data/site
 
 .PHONY: up down prune clean
 
