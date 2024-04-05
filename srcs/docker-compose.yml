@@ -21,6 +21,7 @@ volumes:
 services:
   mariadb:
       container_name: "mariadb"
+      image: "mariadb"
       build: ./mariadb
       restart: always
       networks:
@@ -32,6 +33,7 @@ services:
 
   wordpress:
       container_name: "wordpress"
+      image: "mariadb"
       build: ./wordpress
       restart: always
       expose:
@@ -49,6 +51,7 @@ services:
 
   nginx:
       container_name: "nginx"
+      image: "nginx"
       build: ./nginx
       depends_on:
         - wordpress
