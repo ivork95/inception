@@ -33,7 +33,7 @@ services:
 
   wordpress:
       container_name: "wordpress"
-      image: "mariadb"
+      image: "wordpress"
       build: ./wordpress
       restart: always
       expose:
