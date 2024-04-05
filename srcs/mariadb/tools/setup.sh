@@ -1,8 +1,14 @@
-chown -R mysql:mysql /var/lib/mysql
-mysql_install_db --basedir=/usr --datadir=/var/lib/mysql --user=mysql
+#!/bin/bash
 
-echo running setup
-mysqld --bootstrap < /tmp/mariadb/setup.sql
-echo done running setup
+set -e
 
-exec /usr/bin/mysqld_safe --datadir='/var/lib/mysql'
+if [ ! -d "/var/lib/mysql/$MYSQL_DATABASE" ]; then
+	echo "Initializing mariadb database"
+	< /home/start.sql envsubst | mariadbd --bootstrap
+	echo "Initialized mariadb database"
+else
+	echo "mariadb database was already initialized"
+fi
+
+echo "Running mariadbd"
+mariadbd
